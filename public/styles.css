@@ -1,0 +1,296 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --text: #18202f;
+  --muted: #667085;
+  --line: #d8dee8;
+  --panel: #ffffff;
+  --accent: #176d6d;
+  --accent-soft: #e4f4f2;
+  --warn: #915d12;
+  --shadow: 0 14px 36px rgba(22, 32, 47, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px clamp(18px, 5vw, 64px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(26px, 4vw, 42px);
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-decoration: none;
+  background: #fff;
+}
+
+main {
+  padding: 28px clamp(18px, 5vw, 64px) 44px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.7fr);
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.hero-copy {
+  padding: clamp(28px, 5vw, 54px);
+  background: #102532;
+  color: #fff;
+  border-radius: 8px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-copy h2 {
+  margin-bottom: 14px;
+  max-width: 820px;
+  font-size: clamp(30px, 5vw, 58px);
+  line-height: 1.12;
+}
+
+.hero-copy p {
+  margin-bottom: 0;
+  max-width: 680px;
+  color: #d8e6e8;
+  font-size: 18px;
+}
+
+.stats {
+  display: grid;
+  gap: 14px;
+}
+
+.stats div,
+.panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.stats div {
+  padding: 22px;
+}
+
+.stats strong {
+  display: block;
+  font-size: 34px;
+}
+
+.stats span {
+  color: var(--muted);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(220px, 1fr) minmax(160px, 220px);
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.toolbar label {
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  gap: 24px;
+  align-items: start;
+}
+
+.side {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.panel {
+  padding: 22px;
+  min-width: 0;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel h2 {
+  margin-bottom: 14px;
+  font-size: 20px;
+}
+
+.notes-list {
+  display: grid;
+  gap: 14px;
+}
+
+.note {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  min-width: 0;
+}
+
+.note h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.note p {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.chip,
+.tags button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.compact-list {
+  display: grid;
+  gap: 10px;
+}
+
+.compact-item {
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  min-width: 0;
+}
+
+.compact-item p {
+  margin: 0;
+}
+
+.note,
+.compact-item,
+.hero-copy,
+.panel {
+  overflow-wrap: anywhere;
+}
+
+.compact-item span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tags button {
+  cursor: pointer;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px clamp(18px, 5vw, 64px);
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 860px) {
+  .topbar,
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero,
+  .grid,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    min-height: 220px;
+  }
+}

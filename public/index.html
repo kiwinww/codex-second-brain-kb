@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人第二大脑</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Markdown Knowledge Base</p>
+        <h1>个人第二大脑</h1>
+      </div>
+      <nav aria-label="主要区域">
+        <a href="#notes">笔记</a>
+        <a href="#tasks">任务</a>
+        <a href="#calendar">日程</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h2>把零散输入整理成 AI 能读懂的长期上下文。</h2>
+          <p>这里从 Markdown 文件生成，可部署到阿里云 OSS，也能在 GitHub 上协作调试。</p>
+        </div>
+        <div class="stats" aria-label="知识库统计">
+          <div><strong id="stat-notes">0</strong><span>公开笔记</span></div>
+          <div><strong id="stat-tags">0</strong><span>标签</span></div>
+          <div><strong id="stat-tasks">0</strong><span>任务</span></div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="搜索和筛选">
+        <label for="search">搜索</label>
+        <input id="search" type="search" placeholder="搜索标题、正文、标签">
+        <select id="type-filter" aria-label="按类型筛选">
+          <option value="">全部类型</option>
+        </select>
+      </section>
+
+      <section class="grid">
+        <article id="notes" class="panel large">
+          <div class="panel-head">
+            <h2>公开笔记</h2>
+            <span id="result-count"></span>
+          </div>
+          <div id="notes-list" class="notes-list"></div>
+        </article>
+
+        <aside class="side">
+          <article id="tasks" class="panel">
+            <h2>任务</h2>
+            <div id="tasks-list" class="compact-list"></div>
+          </article>
+
+          <article id="calendar" class="panel">
+            <h2>近期计划</h2>
+            <div id="events-list" class="compact-list"></div>
+          </article>
+
+          <article class="panel">
+            <h2>标签关系</h2>
+            <div id="tags-list" class="tags"></div>
+          </article>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <span>Generated from Markdown.</span>
+      <span id="generated-at"></span>
+    </footer>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
