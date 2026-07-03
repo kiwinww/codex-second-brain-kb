@@ -32,6 +32,7 @@
 - Wiki 页面正文应包含 `## 来源`、`## 相关页面`、`## 待验证`，并优先使用 `[[页面标题]]` 形式连接相关页面。
 - 如果发现硬矛盾，写入 `Contradiction severity: hard` 和 `Status: Unresolved`，停止发布，等待人工解决。
 - `index.md` 是内容目录，`log.md` 是按时间追加的维护记录；每次 ingest、query 沉淀、lint 或 publish 后都要更新。
+- 部署前必须通过 `python tools/kb.py index --check`，避免 `index.md` 和 Markdown 实际内容脱节。
 
 ## 站点维护
 
@@ -39,6 +40,7 @@
 - `site/` 是静态站点源码，`public/` 是可部署产物。
 - 不要手写 `public/data.js`；它由脚本生成。
 - 自动化入口：`python tools/kb.py new`、`python tools/kb.py index`、`python tools/kb.py log`、`python tools/kb.py lint`。
+- `public/data.js` 会包含公开页面的 `graph` 关系数据，用于展示公开 Wiki 的 `[[内链]]`。
 - 新增页面或脚本时优先使用标准库和原生浏览器能力，避免增加构建依赖。
 - 移动端按 375px、768px、1024px、1440px 四个宽度检查，不允许出现非预期横向滚动。
 - 发布前确认搜索、类型筛选、标签点击、任务和近期计划都能正常显示。

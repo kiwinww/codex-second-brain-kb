@@ -1,5 +1,5 @@
 window.KB_DATA = {
-  "generatedAt": "2026-07-03 13:49",
+  "generatedAt": "2026-07-03 13:53",
   "notes": [
     {
       "title": "第二大脑产品想法",
@@ -15,7 +15,8 @@ window.KB_DATA = {
       "path": "02_memos/second-brain-product-ideas.md",
       "status": "",
       "source": "",
-      "summary": "第二大脑仪表盘、公开私密分层和关系图等产品想法。"
+      "summary": "第二大脑仪表盘、公开私密分层和关系图等产品想法。",
+      "links": []
     },
     {
       "title": "任务清单",
@@ -29,7 +30,8 @@ window.KB_DATA = {
       "path": "03_tasks/tasks.md",
       "status": "",
       "source": "",
-      "summary": "任务清单 建立 Markdown 知识库目录。 整理《如何用codex建立个人知识库 第二大脑》来源卡。 输出第二大脑方法论 Wiki。 创建静态站点仪表盘。 优化移动端首屏、搜索和筛选体验。 将公网发布规则改为默认私密。 补全知识库模板和起始索引。 生成个人第二大脑操作手册。 配置阿里云 OSS Bucket 和访问域名。 在 GitHub 仓库配置阿里云"
+      "summary": "任务清单 建立 Markdown 知识库目录。 整理《如何用codex建立个人知识库 第二大脑》来源卡。 输出第二大脑方法论 Wiki。 创建静态站点仪表盘。 优化移动端首屏、搜索和筛选体验。 将公网发布规则改为默认私密。 补全知识库模板和起始索引。 生成个人第二大脑操作手册。 配置阿里云 OSS Bucket 和访问域名。 在 GitHub 仓库配置阿里云",
+      "links": []
     },
     {
       "title": "近期计划",
@@ -43,7 +45,8 @@ window.KB_DATA = {
       "path": "04_calendar/upcoming.md",
       "status": "",
       "source": "",
-      "summary": "近期计划"
+      "summary": "近期计划",
+      "links": []
     },
     {
       "title": "公网第二大脑站点",
@@ -60,7 +63,8 @@ window.KB_DATA = {
       "path": "05_projects/public-second-brain-site.md",
       "status": "active",
       "source": "",
-      "summary": "公网第二大脑站点 目标 把本地 Markdown 知识库生成成一个静态站点，支持公网访问，也方便开发者通过 GitHub 调试。 当前状态 静态站点源码位于 `site/`。 部署产物位于 `public/`。 数据由 `tools/build_site.py` 从 Markdown 生成。 GitHub Pages 已用于公网访问。 公网站点只展示明确设置"
+      "summary": "公网第二大脑站点 目标 把本地 Markdown 知识库生成成一个静态站点，支持公网访问，也方便开发者通过 GitHub 调试。 当前状态 静态站点源码位于 `site/`。 部署产物位于 `public/`。 数据由 `tools/build_site.py` 从 Markdown 生成。 GitHub Pages 已用于公网访问。 公网站点只展示明确设置",
+      "links": []
     },
     {
       "title": "AI 个人上下文",
@@ -76,7 +80,8 @@ window.KB_DATA = {
       "path": "06_areas/ai-context.md",
       "status": "",
       "source": "",
-      "summary": "说明 AI 工具读取长期个人上下文的目标和维护内容。"
+      "summary": "说明 AI 工具读取长期个人上下文的目标和维护内容。",
+      "links": []
     },
     {
       "title": "LLM Wiki",
@@ -94,7 +99,8 @@ window.KB_DATA = {
       "path": "08_sources_raw/2026-04-04-karpathy-llm-wiki.md",
       "status": "",
       "source": "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f",
-      "summary": "Karpathy 提出的 LLM Wiki 模式：让 LLM 在不可变来源和用户问题之间维护一个持续生长的 Markdown Wiki。"
+      "summary": "Karpathy 提出的 LLM Wiki 模式：让 LLM 在不可变来源和用户问题之间维护一个持续生长的 Markdown Wiki。",
+      "links": []
     },
     {
       "title": "如何用codex建立个人知识库 第二大脑",
@@ -111,7 +117,8 @@ window.KB_DATA = {
       "path": "08_sources_raw/2026-07-02-wechat-codex-second-brain.md",
       "status": "",
       "source": "https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg",
-      "summary": "微信文章，介绍用 Codex/Cursor 搭建 Markdown 个人知识库和第二大脑的实践。"
+      "summary": "微信文章，介绍用 Codex/Cursor 搭建 Markdown 个人知识库和第二大脑的实践。",
+      "links": []
     },
     {
       "title": "知识库地图",
@@ -129,7 +136,11 @@ window.KB_DATA = {
       "path": "09_wiki/knowledge-base-map.md",
       "status": "",
       "source": "",
-      "summary": "说明个人第二大脑的目录职责、公开策略和日常维护流向。"
+      "summary": "说明个人第二大脑的目录职责、公开策略和日常维护流向。",
+      "links": [
+        "Codex 时代的个人第二大脑",
+        "LLM Wiki 工作流"
+      ]
     },
     {
       "title": "LLM Wiki 工作流",
@@ -149,7 +160,12 @@ window.KB_DATA = {
       "path": "09_wiki/llm-wiki-workflow.md",
       "status": "",
       "source": "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f",
-      "summary": "将 Karpathy 的 LLM Wiki 模式落到本仓库：来源只读、Wiki 由 LLM 维护、AGENTS 作为 schema，操作分为 ingest、query 和 lint。"
+      "summary": "将 Karpathy 的 LLM Wiki 模式落到本仓库：来源只读、Wiki 由 LLM 维护、AGENTS 作为 schema，操作分为 ingest、query 和 lint。",
+      "links": [
+        "Codex 时代的个人第二大脑",
+        "LLM Wiki",
+        "知识库地图"
+      ]
     },
     {
       "title": "Codex 时代的个人第二大脑",
@@ -170,7 +186,12 @@ window.KB_DATA = {
       "path": "09_wiki/second-brain-llm-wiki-codex.md",
       "status": "",
       "source": "https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg",
-      "summary": "说明 Codex 时代的个人第二大脑如何以 Markdown、LLM Wiki 和长期上下文方式落地。"
+      "summary": "说明 Codex 时代的个人第二大脑如何以 Markdown、LLM Wiki 和长期上下文方式落地。",
+      "links": [
+        "LLM Wiki 工作流",
+        "如何用codex建立个人知识库 第二大脑",
+        "知识库地图"
+      ]
     },
     {
       "title": "个人第二大脑操作手册",
@@ -189,7 +210,10 @@ window.KB_DATA = {
       "path": "10_outputs/operation-manual.md",
       "status": "",
       "source": "",
-      "summary": "面向使用者和开发者的知识库维护、构建、发布和故障处理手册。"
+      "summary": "面向使用者和开发者的知识库维护、构建、发布和故障处理手册。",
+      "links": [
+        "页面标题"
+      ]
     }
   ],
   "tasks": [
@@ -371,5 +395,68 @@ window.KB_DATA = {
     "source": 2,
     "tasks": 1,
     "wiki": 3
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "LLM Wiki",
+        "type": "source",
+        "path": "08_sources_raw/2026-04-04-karpathy-llm-wiki.md"
+      },
+      {
+        "id": "如何用codex建立个人知识库 第二大脑",
+        "type": "source",
+        "path": "08_sources_raw/2026-07-02-wechat-codex-second-brain.md"
+      },
+      {
+        "id": "知识库地图",
+        "type": "wiki",
+        "path": "09_wiki/knowledge-base-map.md"
+      },
+      {
+        "id": "LLM Wiki 工作流",
+        "type": "wiki",
+        "path": "09_wiki/llm-wiki-workflow.md"
+      },
+      {
+        "id": "Codex 时代的个人第二大脑",
+        "type": "wiki",
+        "path": "09_wiki/second-brain-llm-wiki-codex.md"
+      }
+    ],
+    "edges": [
+      {
+        "source": "知识库地图",
+        "target": "Codex 时代的个人第二大脑"
+      },
+      {
+        "source": "知识库地图",
+        "target": "LLM Wiki 工作流"
+      },
+      {
+        "source": "LLM Wiki 工作流",
+        "target": "Codex 时代的个人第二大脑"
+      },
+      {
+        "source": "LLM Wiki 工作流",
+        "target": "LLM Wiki"
+      },
+      {
+        "source": "LLM Wiki 工作流",
+        "target": "知识库地图"
+      },
+      {
+        "source": "Codex 时代的个人第二大脑",
+        "target": "LLM Wiki 工作流"
+      },
+      {
+        "source": "Codex 时代的个人第二大脑",
+        "target": "如何用codex建立个人知识库 第二大脑"
+      },
+      {
+        "source": "Codex 时代的个人第二大脑",
+        "target": "知识库地图"
+      }
+    ]
   }
 };

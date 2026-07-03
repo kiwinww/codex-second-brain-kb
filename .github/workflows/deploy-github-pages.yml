@@ -27,8 +27,17 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Check knowledge base index
+        run: python tools/kb.py index --check
+
       - name: Build static site
         run: python tools/build_site.py
+
+      - name: Lint knowledge base
+        run: python tools/kb.py lint
+
+      - name: Check Python syntax
+        run: python -m py_compile tools/build_site.py tools/kb.py
 
       - uses: actions/configure-pages@v5
 
@@ -38,4 +47,3 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
-

@@ -186,8 +186,7 @@ def format_page_row(page: dict) -> str:
     return f"- [{page['title']}]({page['rel']}) - {summary}（{status}，{updated}）{suffix}"
 
 
-def cmd_index(_: argparse.Namespace) -> int:
-    pages = collect_pages()
+def render_index(pages: list[dict]) -> str:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for page in pages:
         grouped[page["type"]].append(page)
@@ -228,7 +227,21 @@ def cmd_index(_: argparse.Namespace) -> int:
         lines.extend(format_page_row(page) for page in items)
         lines.append("")
 
-    (ROOT / "index.md").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_index(args: argparse.Namespace) -> int:
+    rendered = render_index(collect_pages())
+    index_path = ROOT / "index.md"
+    if args.check:
+        current = index_path.read_text(encoding="utf-8") if index_path.exists() else ""
+        if current != rendered:
+            print("index.md is stale. Run: python tools/kb.py index", file=sys.stderr)
+            return 1
+        print("index.md is up to date")
+        return 0
+
+    index_path.write_text(rendered, encoding="utf-8")
     print("Updated index.md")
     return 0
 
@@ -306,6 +319,11 @@ def cmd_lint(_: argparse.Namespace) -> int:
     by_rel = {page["rel"]: page for page in pages}
     by_title = {page["title"]: page for page in pages}
 
+    expected_index = render_index(pages)
+    current_index = (ROOT / "index.md").read_text(encoding="utf-8") if (ROOT / "index.md").exists() else ""
+    if current_index != expected_index:
+        errors.append("index.md is stale. Run: python tools/kb.py index")
+
     for page in pages:
         if not page["meta"]:
             errors.append(f"Missing front matter: {page['rel']}")
@@ -379,7 +397,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Knowledge base maintenance helpers")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    subparsers.add_parser("index", help="Rebuild index.md from Markdown front matter").set_defaults(func=cmd_index)
+    index_parser = subparsers.add_parser("index", help="Rebuild index.md from Markdown front matter")
+    index_parser.add_argument("--check", action="store_true", help="Fail if index.md is not up to date")
+    index_parser.set_defaults(func=cmd_index)
 
     log_parser = subparsers.add_parser("log", help="Append a parseable log entry")
     log_parser.add_argument("--kind", required=True, choices=sorted(LOG_KINDS))

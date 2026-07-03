@@ -5,6 +5,7 @@
     events: [],
     tags: [],
     countsByType: {},
+    graph: { nodes: [], edges: [] },
     generatedAt: "",
   };
 
@@ -26,12 +27,14 @@
   const tasksList = document.querySelector("#tasks-list");
   const eventsList = document.querySelector("#events-list");
   const tagsList = document.querySelector("#tags-list");
+  const graphList = document.querySelector("#graph-list");
   const typeFilters = document.querySelector("#type-filters");
   const searchInput = document.querySelector("#search");
   const resultCount = document.querySelector("#result-count");
   const notesCount = document.querySelector("#notes-count");
   const taskCount = document.querySelector("#task-count");
   const eventCount = document.querySelector("#event-count");
+  const graphCount = document.querySelector("#graph-count");
   let currentType = "";
 
   document.querySelector("#stat-notes").textContent = data.notes.length;
@@ -40,6 +43,7 @@
   document.querySelector("#generated-at").textContent = data.generatedAt ? `更新于 ${data.generatedAt}` : "";
   taskCount.textContent = `${data.tasks.length} 条`;
   eventCount.textContent = `${data.events.length} 条`;
+  graphCount.textContent = `${data.graph?.edges?.length || 0} 条`;
 
   function typeName(type) {
     return typeLabels[type] || type || "笔记";
@@ -149,6 +153,25 @@
     });
   }
 
+  function renderGraph() {
+    graphList.innerHTML = "";
+    const edges = data.graph?.edges || [];
+    if (!edges.length) {
+      const empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = "暂无公开 Wiki 关系。";
+      graphList.appendChild(empty);
+      return;
+    }
+
+    edges.slice(0, 8).forEach((edge) => {
+      const item = document.createElement("div");
+      item.className = "graph-edge";
+      item.innerHTML = `<span>${escapeHtml(edge.source)}</span><strong>→</strong><span>${escapeHtml(edge.target)}</span>`;
+      graphList.appendChild(item);
+    });
+  }
+
   function escapeHtml(value) {
     return String(value || "")
       .replace(/&/g, "&amp;")
@@ -163,6 +186,7 @@
   renderTypeFilters();
   renderNotes();
   renderTags();
+  renderGraph();
   renderCompact(tasksList, data.tasks, "暂无任务");
   renderCompact(eventsList, data.events, "暂无日程");
 })();

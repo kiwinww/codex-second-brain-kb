@@ -16,6 +16,7 @@
 
 ```powershell
 python tools/kb.py index
+python tools/kb.py index --check
 python tools/kb.py lint
 python tools/build_site.py
 python -m http.server 8000 -d public
@@ -96,9 +97,12 @@ python -m http.server 8000 -d public
 ```powershell
 python tools/kb.py new --type wiki --title "新主题"
 python tools/kb.py index
+python tools/kb.py index --check
 python tools/kb.py log --kind ingest --title "新来源"
 python tools/kb.py lint
 ```
+
+GitHub Pages 和阿里云 OSS workflow 会在部署前运行索引检查、构建、知识库 lint 和 Python 语法检查。
 
 ## 部署到阿里云
 

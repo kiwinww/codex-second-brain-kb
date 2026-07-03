@@ -74,6 +74,10 @@ def is_public(meta: dict) -> bool:
     return meta.get("public") is True
 
 
+def extract_wikilinks(body: str) -> list[str]:
+    return sorted(set(re.findall(r"\[\[([^\]]+)\]\]", body)))
+
+
 def read_notes() -> list[dict]:
     notes = []
     for folder in CONTENT_DIRS:
@@ -104,9 +108,31 @@ def read_notes() -> list[dict]:
                     "status": str(meta.get("status") or ""),
                     "source": str(meta.get("source") or meta.get("url") or ""),
                     "summary": str(meta.get("summary") or summarize(body)),
+                    "links": extract_wikilinks(body),
                 }
             )
     return notes
+
+
+def build_graph(notes: list[dict]) -> dict:
+    public_titles = {note["title"] for note in notes}
+    edges = []
+    for note in notes:
+        for target in note.get("links", []):
+            if target in public_titles:
+                edges.append({"source": note["title"], "target": target})
+
+    connected_titles = {edge["source"] for edge in edges} | {edge["target"] for edge in edges}
+    nodes = [
+        {
+            "id": note["title"],
+            "type": note["type"],
+            "path": note["path"],
+        }
+        for note in notes
+        if note["title"] in connected_titles
+    ]
+    return {"nodes": nodes, "edges": edges}
 
 
 def read_tasks() -> list[dict]:
@@ -163,6 +189,7 @@ def build() -> None:
         "events": read_events(),
         "tags": [{"name": name, "count": count} for name, count in tag_counter.most_common()],
         "countsByType": dict(sorted(type_counter.items())),
+        "graph": build_graph(notes),
     }
 
     output = "window.KB_DATA = "

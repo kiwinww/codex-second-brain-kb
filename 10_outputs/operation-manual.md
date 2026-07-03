@@ -35,6 +35,7 @@ public: true
 
 ```powershell
 python tools/kb.py index
+python tools/kb.py index --check
 python tools/kb.py log --kind ingest --title "来源或主题"
 python tools/kb.py lint
 python tools/build_site.py
@@ -56,6 +57,8 @@ python tools/kb.py lint
 
 它会检查 front matter、模板默认私密、硬矛盾、Wiki 标准区块、内链、索引和公开数据泄露。
 
+`python tools/kb.py index --check` 会检查 `index.md` 是否和当前 Markdown 内容一致，适合部署前使用。
+
 ## 6. 公开与隐私
 
 - 默认私密：缺少 `public: true` 的文件不会进入公网数据。
@@ -69,6 +72,7 @@ python tools/kb.py lint
 
 ```powershell
 python tools/kb.py index
+python tools/kb.py index --check
 python tools/kb.py lint
 python tools/build_site.py
 python -m http.server 8000 -d public
@@ -101,6 +105,7 @@ python -m http.server 8000 -d public
 
 ```powershell
 python tools/kb.py index
+python tools/kb.py index --check
 python tools/kb.py lint
 python tools/build_site.py
 git status --short
@@ -143,6 +148,7 @@ pwsh scripts/deploy_aliyun_oss.ps1
 
 - 页面空白：确认 `public/data.js` 存在，并查看浏览器控制台。
 - 搜索没有结果：确认对应 Markdown 已写 `public: true`，并重新运行 `python tools/build_site.py`。
+- Wiki 关系为空：确认公开 Wiki 页面之间使用了 `[[页面标题]]` 内链，并重新构建站点。
 - 中文乱码：确认文件以 UTF-8 保存，不要用非 UTF-8 编码重写 Markdown。
 - 手机横向滚动：检查长链接、表格和未换行文本，必要时缩短摘要或改成列表。
 - GitHub Pages 未更新：检查 Actions 是否成功，必要时手动运行 `Deploy to GitHub Pages`。
