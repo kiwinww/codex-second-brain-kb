@@ -28,6 +28,7 @@ TYPE_FOLDERS = {
     "area": "06_areas",
     "calendar": "04_calendar",
     "daily": "01_daily",
+    "health": "06_areas",
     "memo": "02_memos",
     "output": "10_outputs",
     "person": "07_people",
@@ -41,6 +42,7 @@ TYPE_LABELS = {
     "area": "领域",
     "calendar": "日程",
     "daily": "日志",
+    "health": "健康",
     "memo": "想法",
     "note": "笔记",
     "output": "输出",
@@ -59,6 +61,7 @@ INDEX_GROUPS = [
     ("tasks", "任务"),
     ("calendar", "日程"),
     ("area", "长期领域"),
+    ("health", "健康"),
     ("memo", "想法"),
     ("person", "人物"),
     ("daily", "日志"),
@@ -377,6 +380,16 @@ def cmd_lint(_: argparse.Namespace) -> int:
             errors.append(f"public/data.js references unknown page: {path}")
         elif not page["public"]:
             errors.append(f"Private page leaked into public/data.js: {path}")
+
+    for metric in public_data.get("healthMetrics", []):
+        path = metric.get("path")
+        if not path:
+            continue
+        page = by_rel.get(path)
+        if not page:
+            errors.append(f"public/data.js references unknown health page: {path}")
+        elif not page["public"]:
+            errors.append(f"Private health page leaked into public/data.js: {path}")
 
     if warnings:
         print("Warnings:")

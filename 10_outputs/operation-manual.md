@@ -90,7 +90,20 @@ Windows 也可以使用：
 - `scripts/serve.ps1`：生成并启动本地预览。
 - `scripts/open_site.bat`：生成并打开本地页面。
 
-## 8. GitHub 协作
+## 8. HTML 仪表盘
+
+仪表盘入口是 `public/index.html`，由 `site/` 复制生成。
+
+- 搜索、类型筛选、标签、日历、近期计划、任务和想法脑图都读取 `public/data.js`。
+- 日历可添加本地日程，也可导出 `.ics` 文件用于同步到外部日历。
+- 知识卡片可以从当前浏览器视图移除；公网文件本身不会被网页直接删除。
+- 编辑与本地上传默认折叠，展开后会生成 Markdown，可以复制、下载，也可以临时填充到当前浏览器视图。
+- 本地上传支持 Markdown、JSON 和 CSV，只在当前浏览器预览；刷新页面后临时导入会消失。
+- 要正式入库，先下载或复制 Markdown，再放入对应目录，之后重新运行 `python tools/build_site.py`。
+- 健康数据仍可使用 `type: health` 和表格 `日期 | 指标 | 数值 | 单位 | 备注`，模板见 `11_templates/health.md`；当前首页不展示健康状态栏。
+- 健康模板默认 `public: false`；只有确认脱敏且适合公开时，才改成 `public: true`。
+
+## 9. GitHub 协作
 
 开发者调试流程：
 
@@ -111,7 +124,7 @@ python tools/build_site.py
 git status --short
 ```
 
-## 9. GitHub Pages 发布
+## 10. GitHub Pages 发布
 
 推送到 `main` 后，GitHub Actions 会运行 `Deploy to GitHub Pages`。
 
@@ -123,7 +136,7 @@ https://kiwinww.github.io/codex-second-brain-kb/
 
 如果页面没有更新，先查看 GitHub Actions 最近一次运行是否成功，再确认 `public/data.js` 是否由最新 Markdown 生成。
 
-## 10. 阿里云 OSS 发布
+## 11. 阿里云 OSS 发布
 
 阿里云发布保持手动触发。需要在 GitHub 仓库 Secrets 中配置：
 
@@ -144,11 +157,13 @@ pwsh scripts/deploy_aliyun_oss.ps1
 
 没有 Bucket、Endpoint 和密钥时，不要尝试实际上传。
 
-## 11. 故障处理
+## 12. 故障处理
 
 - 页面空白：确认 `public/data.js` 存在，并查看浏览器控制台。
 - 搜索没有结果：确认对应 Markdown 已写 `public: true`，并重新运行 `python tools/build_site.py`。
 - Wiki 关系为空：确认公开 Wiki 页面之间使用了 `[[页面标题]]` 内链，并重新构建站点。
+- 健康数据没有显示：当前首页已隐藏健康状态栏；如需恢复，需要重新加入对应页面模块。
+- 本地上传后刷新消失：这是静态仪表盘的预期行为；正式保存需要下载或复制 Markdown 后放回仓库。
 - 中文乱码：确认文件以 UTF-8 保存，不要用非 UTF-8 编码重写 Markdown。
 - 手机横向滚动：检查长链接、表格和未换行文本，必要时缩短摘要或改成列表。
 - GitHub Pages 未更新：检查 Actions 是否成功，必要时手动运行 `Deploy to GitHub Pages`。

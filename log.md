@@ -32,3 +32,7 @@ public: true
 - 创建 [[LLM Wiki 工作流]]。
 - 将本仓库映射为 raw sources、wiki、schema 三层结构。
 
+## [2026-07-03] publish | HTML 仪表盘升级
+
+- 新增搜索、日历、想法脑图、健康趋势、编辑预览和本地上传。
+

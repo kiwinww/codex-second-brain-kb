@@ -78,6 +78,18 @@ def extract_wikilinks(body: str) -> list[str]:
     return sorted(set(re.findall(r"\[\[([^\]]+)\]\]", body)))
 
 
+def parse_markdown_table(body: str) -> list[list[str]]:
+    rows = []
+    for line in body.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|") or "---" in stripped:
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if cells:
+            rows.append(cells)
+    return rows
+
+
 def read_notes() -> list[dict]:
     notes = []
     for folder in CONTENT_DIRS:
@@ -112,6 +124,43 @@ def read_notes() -> list[dict]:
                 }
             )
     return notes
+
+
+def build_ideas(notes: list[dict]) -> dict:
+    idea_tags = {"idea", "ideas", "brainstorm", "memo", "想法", "灵感"}
+    public_titles = {note["title"] for note in notes}
+    nodes: dict[str, dict] = {}
+    edges: list[dict] = []
+
+    for note in notes:
+        tags = [str(tag) for tag in note.get("tags", [])]
+        is_idea = note.get("type") == "memo" or any(str(tag).lower() in idea_tags for tag in tags)
+        if not is_idea:
+            continue
+
+        note_id = f"note:{note['title']}"
+        nodes[note_id] = {
+            "id": note_id,
+            "label": note["title"],
+            "kind": "memo",
+            "path": note["path"],
+            "summary": note.get("summary", ""),
+            "tags": tags,
+        }
+
+        for tag in tags[:6]:
+            tag_id = f"tag:{tag}"
+            nodes.setdefault(tag_id, {"id": tag_id, "label": tag, "kind": "tag"})
+            edges.append({"source": note_id, "target": tag_id})
+
+        for target in note.get("links", []):
+            if target not in public_titles:
+                continue
+            target_id = f"page:{target}"
+            nodes.setdefault(target_id, {"id": target_id, "label": target, "kind": "wiki"})
+            edges.append({"source": note_id, "target": target_id})
+
+    return {"nodes": list(nodes.values()), "edges": edges}
 
 
 def build_graph(notes: list[dict]) -> dict:
@@ -170,8 +219,53 @@ def read_events() -> list[dict]:
             continue
         cells = [cell.strip() for cell in line.strip("|").split("|")]
         if len(cells) >= 3:
-            events.append({"title": cells[1], "meta": f"{cells[0]} · {cells[2]}"})
-    return events
+            events.append(
+                {
+                    "date": cells[0],
+                    "title": cells[1],
+                    "status": cells[2],
+                    "meta": f"{cells[0]} · {cells[2]}",
+                }
+            )
+    return sorted(events, key=lambda event: (event.get("date") or "", event.get("title") or ""))
+
+
+def read_health_metrics() -> list[dict]:
+    metrics = []
+    for folder in CONTENT_DIRS:
+        base = ROOT / folder
+        if not base.exists():
+            continue
+        for path in sorted(base.rglob("*.md")):
+            text = path.read_text(encoding="utf-8")
+            meta, body = parse_front_matter(text)
+            if not is_public(meta) or str(meta.get("type") or "") != "health":
+                continue
+
+            rel = path.relative_to(ROOT).as_posix()
+            for cells in parse_markdown_table(body):
+                if len(cells) < 4 or cells[0] == "日期":
+                    continue
+                try:
+                    value = float(cells[2].replace(",", ""))
+                except ValueError:
+                    continue
+                metrics.append(
+                    {
+                        "date": cells[0],
+                        "metric": cells[1],
+                        "value": value,
+                        "unit": cells[3],
+                        "note": cells[4] if len(cells) >= 5 else "",
+                        "path": rel,
+                    }
+                )
+    return sorted(metrics, key=lambda item: (item["metric"], item["date"]))
+
+
+def build_counts(notes: list[dict]) -> dict:
+    counter = Counter(note["type"] for note in notes)
+    return dict(sorted(counter.items()))
 
 
 def build() -> None:
@@ -181,15 +275,16 @@ def build() -> None:
 
     notes = read_notes()
     tag_counter = Counter(tag for note in notes for tag in note["tags"])
-    type_counter = Counter(note["type"] for note in notes)
     data = {
         "generatedAt": datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M"),
         "notes": notes,
         "tasks": read_tasks(),
         "events": read_events(),
         "tags": [{"name": name, "count": count} for name, count in tag_counter.most_common()],
-        "countsByType": dict(sorted(type_counter.items())),
+        "countsByType": build_counts(notes),
         "graph": build_graph(notes),
+        "ideas": build_ideas(notes),
+        "healthMetrics": read_health_metrics(),
     }
 
     output = "window.KB_DATA = "

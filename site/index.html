@@ -3,80 +3,239 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>个人第二大脑</title>
+    <title>个人第二大脑仪表盘</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="./" aria-label="个人第二大脑首页">
-        <span>Markdown KB</span>
+      <a class="brand" href="./" aria-label="个人第二大脑仪表盘首页">
         <strong>个人第二大脑</strong>
+        <span>Markdown KB</span>
       </a>
       <nav aria-label="主要区域">
-        <a href="#tasks">任务</a>
-        <a href="#calendar">日程</a>
-        <a href="#notes">笔记</a>
+        <a href="#search-panel">搜索</a>
+        <a href="#calendar">日历</a>
+        <a href="#ideas">脑图</a>
+        <a href="#editor">编辑</a>
       </nav>
     </header>
-
+-
     <main>
       <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
         <div class="hero-copy">
-          <p class="eyebrow">Second Brain</p>
-          <h1 id="hero-title">把长期上下文整理成 AI 能读懂的知识库。</h1>
-          <p>Markdown 保存，本地维护，公网只发布明确公开的内容。</p>
+          <p class="badge">AI · Powered</p>
+          <p class="eyebrow">Second Brain Dashboard</p>
+          <h1 id="hero-title">SECOND<br>BRAIN<br>MAP</h1>
+          <p class="hero-summary">把中文第二大脑、近期计划、想法脑图和任务卡片，整理成一个可搜索、可维护的知识工作台。</p>
         </div>
-        <div class="stats" aria-label="知识库统计">
-          <div><strong id="stat-notes">0</strong><span>公开笔记</span></div>
-          <div><strong id="stat-tags">0</strong><span>标签</span></div>
-          <div><strong id="stat-tasks">0</strong><span>任务</span></div>
-        </div>
-      </section>
 
-      <section class="toolbar" aria-labelledby="search-title">
-        <div class="toolbar-head">
-          <h2 id="search-title">检索</h2>
-          <span id="result-count"></span>
-        </div>
-        <input id="search" type="search" placeholder="搜索标题、摘要、标签" autocomplete="off">
-        <div id="type-filters" class="type-filters" aria-label="按类型筛选"></div>
-      </section>
+        <section id="search-panel" class="search-panel hero-search" aria-labelledby="search-title">
+          <div class="search-row">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <label class="sr-only" for="search" id="search-title">搜索知识库</label>
+            <input id="search" type="search" placeholder="搜索想法、计划、行程、任务..." autocomplete="off">
+            <span id="generated-at"></span>
+            <button class="search-submit" type="button">Search</button>
+          </div>
+          <div class="search-meta">
+            <span id="result-count"></span>
+            <div id="type-filters" class="type-filters" aria-label="按类型筛选"></div>
+          </div>
+        </section>
 
-      <section class="dashboard-grid">
-        <aside class="side" aria-label="近期概览">
-          <article id="tasks" class="panel">
+        <aside class="hero-side" aria-label="知识库概览">
+          <article class="glass-card stats-card">
             <div class="panel-head">
-              <h2>任务</h2>
-              <span id="task-count"></span>
+              <div>
+                <p class="eyebrow">Online</p>
+                <h2>第二大脑在线</h2>
+              </div>
+              <a class="round-link" href="#notes" aria-label="查看公开笔记">↗</a>
             </div>
-            <div id="tasks-list" class="compact-list"></div>
+            <div class="stats" aria-label="知识库统计">
+              <div><strong id="stat-notes">0</strong><span>公开笔记</span></div>
+              <div><strong id="stat-ideas">0</strong><span>想法</span></div>
+              <div><strong id="stat-events">0</strong><span>日程</span></div>
+              <div><strong id="stat-tasks">0</strong><span>任务</span></div>
+            </div>
           </article>
 
-          <article id="calendar" class="panel">
-            <div class="panel-head">
-              <h2>近期计划</h2>
-              <span id="event-count"></span>
-            </div>
-            <div id="events-list" class="compact-list"></div>
-          </article>
-
-          <article class="panel">
-            <h2>标签关系</h2>
-            <div id="tags-list" class="tags"></div>
-          </article>
-
-          <article class="panel">
-            <div class="panel-head">
-              <h2>Wiki 关系</h2>
-              <span id="graph-count"></span>
-            </div>
-            <div id="graph-list" class="graph-list"></div>
-          </article>
+          <div class="hero-mini-grid">
+            <article class="glass-card mini-card">
+              <div class="panel-head">
+                <h2>近期活跃度</h2>
+                <a class="round-link" href="#plans" aria-label="查看近期计划">↗</a>
+              </div>
+              <strong id="event-count">0 条</strong>
+              <span>计划与日程</span>
+            </article>
+            <article class="glass-card mini-card rhythm-card">
+              <div class="panel-head">
+                <h2>更新节奏</h2>
+                <a class="round-link" href="#tasks" aria-label="查看任务">↗</a>
+              </div>
+              <div class="bar-rhythm" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </article>
+          </div>
         </aside>
+      </section>
+
+      <div class="quick-tabs" aria-label="快捷入口">
+        <a href="#calendar">本月</a>
+        <a href="#plans">行程</a>
+        <a href="#ideas">想法</a>
+        <a href="#notes">学习</a>
+        <a href="#tasks">任务</a>
+        <a href="#editor">编辑</a>
+      </div>
+
+      <section class="dashboard-grid" aria-label="知识库仪表盘">
+        <article id="calendar" class="panel calendar-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Calendar</p>
+              <h2>日历</h2>
+            </div>
+            <div class="calendar-controls">
+              <button id="calendar-prev" type="button" aria-label="上个月">‹</button>
+              <span id="calendar-title"></span>
+              <button id="calendar-next" type="button" aria-label="下个月">›</button>
+            </div>
+            <div class="calendar-actions" aria-label="日程操作">
+              <button id="add-event" type="button">添加日程</button>
+              <button id="download-ics" type="button">导出同步</button>
+            </div>
+          </div>
+          <div id="calendar-grid" class="calendar-grid" aria-label="月历"></div>
+        </article>
+
+        <article id="plans" class="panel compact-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Plan</p>
+              <h2>接下来去哪里</h2>
+            </div>
+          </div>
+          <div id="events-list" class="compact-list"></div>
+        </article>
+
+        <article id="tasks" class="panel compact-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Tasks</p>
+              <h2>今天要理什么事</h2>
+            </div>
+            <span id="task-count"></span>
+          </div>
+          <div id="tasks-list" class="compact-list checklist-list"></div>
+        </article>
+
+        <article id="ideas" class="panel ideas-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Mind Map</p>
+              <h2>近期想法脑图</h2>
+            </div>
+            <span id="idea-count"></span>
+          </div>
+          <div id="mind-map" class="mind-map-wrap"></div>
+        </article>
+
+        <article class="panel tags-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Tags</p>
+              <h2>标签节点</h2>
+            </div>
+            <span id="tag-count"></span>
+          </div>
+          <div id="tags-list" class="tags"></div>
+        </article>
+
+        <details id="editor" class="panel editor-panel">
+          <summary class="editor-summary">
+            <div>
+              <p class="eyebrow">Capture</p>
+              <h2>编辑与本地上传</h2>
+            </div>
+            <span id="import-count"></span>
+          </summary>
+
+          <div class="editor-grid">
+            <form id="editor-form" class="editor-form">
+              <label>
+                <span>标题</span>
+                <input id="edit-title" name="title" type="text" value="新的知识卡片" required>
+              </label>
+              <label>
+                <span>类型</span>
+                <select id="edit-type" name="type">
+                  <option value="memo">想法</option>
+                  <option value="wiki">Wiki</option>
+                  <option value="source">来源</option>
+                  <option value="project">项目</option>
+                  <option value="calendar">日程</option>
+                  <option value="tasks">任务</option>
+                  <option value="area">领域</option>
+                  <option value="output">输出</option>
+                  <option value="person">人物</option>
+                  <option value="daily">日志</option>
+                  <option value="note">笔记</option>
+                </select>
+              </label>
+              <label>
+                <span>标签</span>
+                <input id="edit-tags" name="tags" type="text" value="inbox" placeholder="用逗号分隔">
+              </label>
+              <label>
+                <span>日期</span>
+                <input id="edit-date" name="date" type="date">
+              </label>
+              <label class="field-wide">
+                <span>摘要</span>
+                <input id="edit-summary" name="summary" type="text" placeholder="一句话摘要">
+              </label>
+              <label class="field-wide">
+                <span>正文</span>
+                <textarea id="edit-body" name="body" rows="7">## 想法
+
+-
+
+## 下一步
+
+- [ ] </textarea>
+              </label>
+              <label class="checkbox-line field-wide">
+                <input id="edit-public" name="public" type="checkbox">
+                <span>允许进入公网数据</span>
+              </label>
+              <div class="button-row field-wide">
+                <button id="add-local" type="button">填充到当前视图</button>
+                <button id="copy-markdown" type="button">复制 Markdown</button>
+                <button id="download-markdown" type="button">下载 .md</button>
+              </div>
+            </form>
+
+            <div class="upload-box">
+              <label class="upload-label" for="file-upload">本地上传</label>
+              <input id="file-upload" type="file" multiple accept=".md,.markdown,.json,.csv,text/markdown,application/json,text/csv">
+              <button id="clear-imports" type="button">清空本地导入</button>
+              <div id="import-status" class="status-list"></div>
+            </div>
+
+            <pre id="markdown-preview" class="markdown-preview" aria-label="Markdown 预览"></pre>
+          </div>
+        </details>
 
         <article id="notes" class="panel notes-panel">
           <div class="panel-head">
-            <h2>公开笔记</h2>
+            <div>
+              <p class="eyebrow">Notes</p>
+              <h2>公开笔记</h2>
+            </div>
             <span id="notes-count"></span>
           </div>
           <div id="notes-list" class="notes-list"></div>
@@ -86,7 +245,7 @@
 
     <footer>
       <span>Generated from Markdown.</span>
-      <span id="generated-at"></span>
+      <span>Static, private by default.</span>
     </footer>
 
     <script src="./data.js"></script>

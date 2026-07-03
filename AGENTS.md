@@ -22,6 +22,7 @@
 - `04_calendar/` 存放日程、里程碑和公开可见安排。
 - `05_projects/` 存放项目说明、决策和进展。
 - `06_areas/` 存放长期领域，例如健康、AI、写作、财务。公开站点默认只展示非敏感摘要。
+- `type: health` 存放在 `06_areas/`，只允许发布明确脱敏且 `public: true` 的趋势数据。
 - 日期统一使用 `YYYY-MM-DD`，当前时区按 `Asia/Hong_Kong` 理解。
 
 ## LLM Wiki 工作流
@@ -39,11 +40,14 @@
 - 修改 Markdown 后运行 `python tools/build_site.py` 生成 `public/data.js`。
 - `site/` 是静态站点源码，`public/` 是可部署产物。
 - 不要手写 `public/data.js`；它由脚本生成。
+- `public/data.js` 保持 `notes`、`tasks`、`events`、`tags`、`countsByType`、`graph`，并额外提供 `ideas` 和 `healthMetrics`；当前首页默认不展示健康状态栏。
+- 浏览器里的编辑和本地上传只做临时预览、复制和下载，不会自动写入仓库、硬盘或 GitHub。
+- 健康趋势表格字段固定为 `日期 | 指标 | 数值 | 单位 | 备注`，模板默认 `public: false`。
 - 自动化入口：`python tools/kb.py new`、`python tools/kb.py index`、`python tools/kb.py log`、`python tools/kb.py lint`。
 - `public/data.js` 会包含公开页面的 `graph` 关系数据，用于展示公开 Wiki 的 `[[内链]]`。
 - 新增页面或脚本时优先使用标准库和原生浏览器能力，避免增加构建依赖。
 - 移动端按 375px、768px、1024px、1440px 四个宽度检查，不允许出现非预期横向滚动。
-- 发布前确认搜索、类型筛选、标签点击、任务和近期计划都能正常显示。
+- 发布前确认搜索、类型筛选、标签点击、日历添加/导出、想法脑图、任务、近期计划、卡片删除、编辑预览和本地上传都能正常显示。
 - 阿里云 OSS workflow 保持手动触发；缺少 Bucket、Endpoint 和密钥时不要尝试实际上传。
 
 ## 操作手册

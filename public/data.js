@@ -1,5 +1,5 @@
 window.KB_DATA = {
-  "generatedAt": "2026-07-03 13:53",
+  "generatedAt": "2026-07-03 14:53",
   "notes": [
     {
       "title": "第二大脑产品想法",
@@ -264,23 +264,33 @@ window.KB_DATA = {
   ],
   "events": [
     {
-      "title": "创建知识库和公网静态站点",
-      "meta": "2026-07-03 · 已完成"
-    },
-    {
+      "date": "2026-07-03",
       "title": "优化移动端界面和默认私密发布规则",
+      "status": "已完成",
       "meta": "2026-07-03 · 已完成"
     },
     {
+      "date": "2026-07-03",
+      "title": "创建知识库和公网静态站点",
+      "status": "已完成",
+      "meta": "2026-07-03 · 已完成"
+    },
+    {
+      "date": "2026-07-03",
       "title": "生成个人第二大脑操作手册",
+      "status": "已完成",
       "meta": "2026-07-03 · 已完成"
     },
     {
+      "date": "2026-07-04",
       "title": "配置阿里云 OSS 静态网站托管",
+      "status": "待办",
       "meta": "2026-07-04 · 待办"
     },
     {
+      "date": "2026-07-05",
       "title": "设置阿里云部署 Secrets 并手动发布",
+      "status": "待办",
       "meta": "2026-07-05 · 待办"
     }
   ],
@@ -458,5 +468,51 @@ window.KB_DATA = {
         "target": "知识库地图"
       }
     ]
-  }
+  },
+  "ideas": {
+    "nodes": [
+      {
+        "id": "note:第二大脑产品想法",
+        "label": "第二大脑产品想法",
+        "kind": "memo",
+        "path": "02_memos/second-brain-product-ideas.md",
+        "summary": "第二大脑仪表盘、公开私密分层和关系图等产品想法。",
+        "tags": [
+          "ideas",
+          "second-brain",
+          "dashboard"
+        ]
+      },
+      {
+        "id": "tag:ideas",
+        "label": "ideas",
+        "kind": "tag"
+      },
+      {
+        "id": "tag:second-brain",
+        "label": "second-brain",
+        "kind": "tag"
+      },
+      {
+        "id": "tag:dashboard",
+        "label": "dashboard",
+        "kind": "tag"
+      }
+    ],
+    "edges": [
+      {
+        "source": "note:第二大脑产品想法",
+        "target": "tag:ideas"
+      },
+      {
+        "source": "note:第二大脑产品想法",
+        "target": "tag:second-brain"
+      },
+      {
+        "source": "note:第二大脑产品想法",
+        "target": "tag:dashboard"
+      }
+    ]
+  },
+  "healthMetrics": []
 };

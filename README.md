@@ -30,6 +30,17 @@ Windows 下也可以使用：
 - `scripts/serve.ps1`：生成并启动本地预览
 - `scripts/open_site.bat`：生成并打开本地页面
 
+## HTML 仪表盘
+
+`site/` 和 `public/` 提供一个无前端框架的静态仪表盘：
+
+- 搜索、类型筛选、标签筛选和公开笔记列表。
+- 日历月视图，支持添加日程和导出 `.ics` 同步文件。
+- 近期计划、任务短列表和可从当前视图移除的知识卡片。
+- 想法脑图，来自公开 memo、标签和 Wiki 内链。
+- 编辑与本地上传默认折叠，展开后可生成 Markdown，支持复制、下载和填充到当前浏览器视图。
+- 本地上传支持 `.md`、`.json`、`.csv`，只在当前浏览器临时合并，不会自动写入仓库、硬盘或 GitHub。
+
 ## 操作手册
 
 完整手册见 `10_outputs/operation-manual.md`，包含：
@@ -78,6 +89,15 @@ public: false
 ```
 
 缺少 `public: true` 的内容不会发布到公网。模板默认都是 `public: false`。
+
+健康数据仍可使用 `type: health` 存放在 `06_areas/`，表格字段固定为：
+
+```markdown
+| 日期 | 指标 | 数值 | 单位 | 备注 |
+| --- | --- | --- | --- | --- |
+```
+
+健康模板 `11_templates/health.md` 默认 `public: false`，只有确认脱敏后才改为 `public: true`。当前首页仪表盘不展示健康状态栏。
 
 ## GitHub 协作
 
