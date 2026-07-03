@@ -8,22 +8,23 @@
   </head>
   <body>
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Markdown Knowledge Base</p>
-        <h1>个人第二大脑</h1>
-      </div>
+      <a class="brand" href="./" aria-label="个人第二大脑首页">
+        <span>Markdown KB</span>
+        <strong>个人第二大脑</strong>
+      </a>
       <nav aria-label="主要区域">
-        <a href="#notes">笔记</a>
         <a href="#tasks">任务</a>
         <a href="#calendar">日程</a>
+        <a href="#notes">笔记</a>
       </nav>
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <h2>把零散输入整理成 AI 能读懂的长期上下文。</h2>
-          <p>这里从 Markdown 文件生成，可部署到阿里云 OSS，也能在 GitHub 上协作调试。</p>
+          <p class="eyebrow">Second Brain</p>
+          <h1 id="hero-title">把长期上下文整理成 AI 能读懂的知识库。</h1>
+          <p>Markdown 保存，本地维护，公网只发布明确公开的内容。</p>
         </div>
         <div class="stats" aria-label="知识库统计">
           <div><strong id="stat-notes">0</strong><span>公开笔记</span></div>
@@ -32,31 +33,30 @@
         </div>
       </section>
 
-      <section class="toolbar" aria-label="搜索和筛选">
-        <label for="search">搜索</label>
-        <input id="search" type="search" placeholder="搜索标题、正文、标签">
-        <select id="type-filter" aria-label="按类型筛选">
-          <option value="">全部类型</option>
-        </select>
+      <section class="toolbar" aria-labelledby="search-title">
+        <div class="toolbar-head">
+          <h2 id="search-title">检索</h2>
+          <span id="result-count"></span>
+        </div>
+        <input id="search" type="search" placeholder="搜索标题、摘要、标签" autocomplete="off">
+        <div id="type-filters" class="type-filters" aria-label="按类型筛选"></div>
       </section>
 
-      <section class="grid">
-        <article id="notes" class="panel large">
-          <div class="panel-head">
-            <h2>公开笔记</h2>
-            <span id="result-count"></span>
-          </div>
-          <div id="notes-list" class="notes-list"></div>
-        </article>
-
-        <aside class="side">
+      <section class="dashboard-grid">
+        <aside class="side" aria-label="近期概览">
           <article id="tasks" class="panel">
-            <h2>任务</h2>
+            <div class="panel-head">
+              <h2>任务</h2>
+              <span id="task-count"></span>
+            </div>
             <div id="tasks-list" class="compact-list"></div>
           </article>
 
           <article id="calendar" class="panel">
-            <h2>近期计划</h2>
+            <div class="panel-head">
+              <h2>近期计划</h2>
+              <span id="event-count"></span>
+            </div>
             <div id="events-list" class="compact-list"></div>
           </article>
 
@@ -65,6 +65,14 @@
             <div id="tags-list" class="tags"></div>
           </article>
         </aside>
+
+        <article id="notes" class="panel notes-panel">
+          <div class="panel-head">
+            <h2>公开笔记</h2>
+            <span id="notes-count"></span>
+          </div>
+          <div id="notes-list" class="notes-list"></div>
+        </article>
       </section>
     </main>
 
@@ -77,4 +85,3 @@
     <script src="./app.js"></script>
   </body>
 </html>
-

@@ -1,17 +1,17 @@
 ---
 title:
-type: project
-status: active
+type: output
 tags: []
 updated:
 summary:
 public: false
 ---
 
-# 项目名
+# 输出标题
 
 ## 目标
 
-## 当前状态
+## 正文
 
-## 下一步
+## 发布记录
+

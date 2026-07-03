@@ -3,6 +3,7 @@ title: 个人第二大脑
 type: home
 tags: [second-brain, markdown, ai-context]
 updated: 2026-07-03
+summary: 个人第二大脑知识库入口，说明长期上下文、维护原则和当前起点。
 public: true
 ---
 
@@ -22,4 +23,3 @@ public: true
 - Wiki 笔记重在提炼、连接和可行动。
 - 任务、日程、项目分开管理。
 - 公开站点默认只展示非敏感内容。
-

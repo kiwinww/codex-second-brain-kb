@@ -18,10 +18,11 @@ public: true
 - 静态站点源码位于 `site/`。
 - 部署产物位于 `public/`。
 - 数据由 `tools/build_site.py` 从 Markdown 生成。
+- GitHub Pages 已用于公网访问。
+- 公网站点只展示明确设置 `public: true` 的内容。
 
 ## 下一步
 
 - 配置阿里云 OSS Bucket。
 - 配置 GitHub Actions Secrets。
 - 绑定自定义域名或 CDN。
-

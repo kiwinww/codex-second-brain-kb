@@ -1,17 +1,17 @@
 ---
 title:
-type: project
-status: active
+type: memo
 tags: []
 updated:
 summary:
 public: false
 ---
 
-# 项目名
+# 标题
 
-## 目标
+## 想法
 
-## 当前状态
+## 可能关联
 
 ## 下一步
+

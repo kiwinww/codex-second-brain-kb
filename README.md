@@ -1,8 +1,10 @@
 # 个人第二大脑知识库
 
-这是一个 Markdown 优先的个人知识库，同时带一个可公网部署的静态站点。首篇内容来自微信文章《如何用codex建立个人知识库 第二大脑》的结构化整理。
+这是一个 Markdown 优先的个人知识库，同时带一个可公网部署的静态站点。内容默认私密，只有明确设置 `public: true` 的 Markdown 文件才会进入公网站点。
 
-## 本地使用
+公网地址：https://kiwinww.github.io/codex-second-brain-kb/
+
+## 快速开始
 
 ```powershell
 python tools/build_site.py
@@ -11,11 +13,22 @@ python -m http.server 8000 -d public
 
 然后打开 `http://localhost:8000`。
 
-Windows 下也可以双击：
+Windows 下也可以使用：
 
 - `scripts/build.ps1`：重新生成静态站点数据
 - `scripts/serve.ps1`：生成并启动本地预览
 - `scripts/open_site.bat`：生成并打开本地页面
+
+## 操作手册
+
+完整手册见 `10_outputs/operation-manual.md`，包含：
+
+- 日常记录和资料归档
+- 任务、日程、项目和 Wiki 维护
+- 默认私密与公开发布规则
+- 本地构建和移动端检查
+- GitHub 协作、GitHub Pages 发布
+- 阿里云 OSS 发布和故障处理
 
 ## 目录
 
@@ -29,50 +42,58 @@ Windows 下也可以双击：
 - `07_people/`：人物和关系
 - `08_sources_raw/`：来源卡片
 - `09_wiki/`：结构化知识
-- `10_outputs/`：输出作品
+- `10_outputs/`：输出作品和操作手册
 - `11_templates/`：模板
 - `site/`：站点源码
 - `public/`：可部署静态站点
 - `tools/`：生成脚本
 
-## 部署到阿里云
+## 内容公开规则
 
-本项目输出的是纯静态文件，适合部署到阿里云 OSS 静态网站托管。
+Markdown front matter 建议使用：
 
-1. 在阿里云 OSS 创建 Bucket。
-2. 开启静态网站托管，默认首页设为 `index.html`。
-3. 配置 Bucket 读权限或 CDN 域名访问策略。
-4. 在本机或 CI 中配置以下环境变量：
-
-```powershell
-$env:ALIYUN_BUCKET="your-bucket"
-$env:ALIYUN_ENDPOINT="oss-cn-hangzhou.aliyuncs.com"
-$env:ALIYUN_ACCESS_KEY_ID="your-access-key-id"
-$env:ALIYUN_ACCESS_KEY_SECRET="your-access-key-secret"
+```yaml
+---
+title:
+type:
+tags: []
+updated:
+summary:
+public: false
+---
 ```
 
-5. 安装并配置阿里云 OSS 命令行工具后运行：
-
-```powershell
-python tools/build_site.py
-pwsh scripts/deploy_aliyun_oss.ps1
-```
+缺少 `public: true` 的内容不会发布到公网。模板默认都是 `public: false`。
 
 ## GitHub 协作
 
 开发者拿到仓库后只需要 Python 3.10+：
 
 ```powershell
-git clone <repo-url>
-cd <repo>
+git clone https://github.com/kiwinww/codex-second-brain-kb.git
+cd codex-second-brain-kb
 python tools/build_site.py
 python -m http.server 8000 -d public
 ```
 
-如果要使用 GitHub Actions 自动部署到阿里云 OSS，需要在仓库 Secrets 中配置：
+推送到 `main` 后，GitHub Pages 会自动发布。
+
+## 部署到阿里云
+
+本项目输出的是纯静态文件，适合部署到阿里云 OSS 静态网站托管。阿里云部署保持手动触发。
+
+需要在 GitHub Secrets 中配置：
 
 - `ALIYUN_BUCKET`
 - `ALIYUN_ENDPOINT`
 - `ALIYUN_ACCESS_KEY_ID`
 - `ALIYUN_ACCESS_KEY_SECRET`
 
+本地发布前需要安装阿里云 OSS 命令行工具，然后运行：
+
+```powershell
+python tools/build_site.py
+pwsh scripts/deploy_aliyun_oss.ps1
+```
+
+没有 Bucket、Endpoint 和密钥时不要执行实际上传。

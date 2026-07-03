@@ -12,6 +12,9 @@
 
 ## 知识库规则
 
+- 公网默认私密：只有 front matter 中明确写了 `public: true` 的 Markdown 文件，才允许进入 `public/data.js`。
+- 新建内容一律先使用 `public: false`，确认适合公开后再改为 `true`。
+- front matter 统一优先使用：`title`、`type`、`tags`、`updated`/`date`、`public`、`status`、`source`、可选 `summary`。
 - `08_sources_raw/` 存放来源卡片，只记录元数据、链接和短摘要，不保存整篇受版权保护的原文。
 - `09_wiki/` 存放 AI 整理后的结构化知识，可以跨来源综合，但要保留来源链接。
 - `03_tasks/` 存放任务和下一步行动。
@@ -26,4 +29,10 @@
 - `site/` 是静态站点源码，`public/` 是可部署产物。
 - 不要手写 `public/data.js`；它由脚本生成。
 - 新增页面或脚本时优先使用标准库和原生浏览器能力，避免增加构建依赖。
+- 移动端按 375px、768px、1024px、1440px 四个宽度检查，不允许出现非预期横向滚动。
+- 发布前确认搜索、类型筛选、标签点击、任务和近期计划都能正常显示。
+- 阿里云 OSS workflow 保持手动触发；缺少 Bucket、Endpoint 和密钥时不要尝试实际上传。
 
+## 操作手册
+
+- 日常维护、构建预览、GitHub 协作、GitHub Pages 发布、阿里云 OSS 发布和故障处理见 `10_outputs/operation-manual.md`。

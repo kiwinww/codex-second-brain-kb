@@ -70,6 +70,10 @@ def summarize(body: str) -> str:
     return clean[:180]
 
 
+def is_public(meta: dict) -> bool:
+    return meta.get("public") is True
+
+
 def read_notes() -> list[dict]:
     notes = []
     for folder in CONTENT_DIRS:
@@ -79,7 +83,7 @@ def read_notes() -> list[dict]:
         for path in sorted(base.rglob("*.md")):
             text = path.read_text(encoding="utf-8")
             meta, body = parse_front_matter(text)
-            if meta.get("public") is False:
+            if not is_public(meta):
                 continue
             rel = path.relative_to(ROOT).as_posix()
             tags = meta.get("tags", [])
@@ -93,7 +97,9 @@ def read_notes() -> list[dict]:
                     "updated": str(meta.get("updated") or meta.get("captured") or meta.get("published") or ""),
                     "date": str(meta.get("date") or meta.get("published") or ""),
                     "path": rel,
-                    "summary": summarize(body),
+                    "status": str(meta.get("status") or ""),
+                    "source": str(meta.get("source") or meta.get("url") or ""),
+                    "summary": str(meta.get("summary") or summarize(body)),
                 }
             )
     return notes
@@ -104,8 +110,13 @@ def read_tasks() -> list[dict]:
     if not task_file.exists():
         return []
 
+    text = task_file.read_text(encoding="utf-8")
+    meta, body = parse_front_matter(text)
+    if not is_public(meta):
+        return []
+
     tasks = []
-    for line in task_file.read_text(encoding="utf-8").splitlines():
+    for line in body.splitlines():
         match = re.match(r"- \[([ xX])\] (.+)", line.strip())
         if match:
             done = match.group(1).lower() == "x"
@@ -118,8 +129,13 @@ def read_events() -> list[dict]:
     if not calendar_file.exists():
         return []
 
+    text = calendar_file.read_text(encoding="utf-8")
+    meta, body = parse_front_matter(text)
+    if not is_public(meta):
+        return []
+
     events = []
-    for line in calendar_file.read_text(encoding="utf-8").splitlines():
+    for line in body.splitlines():
         if not line.startswith("|") or "---" in line or "日期" in line:
             continue
         cells = [cell.strip() for cell in line.strip("|").split("|")]
@@ -135,12 +151,14 @@ def build() -> None:
 
     notes = read_notes()
     tag_counter = Counter(tag for note in notes for tag in note["tags"])
+    type_counter = Counter(note["type"] for note in notes)
     data = {
         "generatedAt": datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M"),
         "notes": notes,
         "tasks": read_tasks(),
         "events": read_events(),
         "tags": [{"name": name, "count": count} for name, count in tag_counter.most_common()],
+        "countsByType": dict(sorted(type_counter.items())),
     }
 
     output = "window.KB_DATA = "
