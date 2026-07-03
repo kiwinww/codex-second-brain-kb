@@ -6,6 +6,7 @@ import shutil
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_DIR = ROOT / "site"
@@ -136,7 +137,7 @@ def build() -> None:
     notes = read_notes()
     tag_counter = Counter(tag for note in notes for tag in note["tags"])
     data = {
-        "generatedAt": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "generatedAt": datetime.now(ZoneInfo("Asia/Hong_Kong")).strftime("%Y-%m-%d %H:%M"),
         "notes": notes,
         "tasks": read_tasks(),
         "events": read_events(),
@@ -152,4 +153,3 @@ def build() -> None:
 if __name__ == "__main__":
     build()
     print(f"Built {PUBLIC_DIR}")
-
