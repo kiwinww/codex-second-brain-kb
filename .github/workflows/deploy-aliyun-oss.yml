@@ -2,8 +2,6 @@ name: Deploy to Aliyun OSS
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   deploy:
@@ -34,4 +32,3 @@ jobs:
         run: |
           ossutil config -e "$ALIYUN_ENDPOINT" -i "$ALIYUN_ACCESS_KEY_ID" -k "$ALIYUN_ACCESS_KEY_SECRET"
           ossutil cp -r -f public/ "oss://$ALIYUN_BUCKET/"
-
