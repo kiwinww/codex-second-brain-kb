@@ -27,10 +27,11 @@ jobs:
 
       - name: Install ossutil
         run: |
-          curl -L -o ossutil.zip https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil64.zip
-          unzip ossutil.zip
-          chmod +x ossutil64
-          sudo mv ossutil64 /usr/local/bin/ossutil
+          curl -L --fail -o ossutil.zip https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil-v1.7.19-linux-amd64.zip
+          unzip -q ossutil.zip
+          chmod +x ossutil-v1.7.19-linux-amd64/ossutil
+          sudo mv ossutil-v1.7.19-linux-amd64/ossutil /usr/local/bin/ossutil
+          ossutil --version
 
       - name: Upload to Aliyun OSS
         env:
