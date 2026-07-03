@@ -3,7 +3,10 @@ title:
 type: project
 status: active
 tags: []
+created:
 updated:
+sources: []
+owner: human
 summary:
 public: false
 ---

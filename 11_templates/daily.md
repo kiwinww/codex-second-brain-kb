@@ -3,6 +3,8 @@ title:
 type: daily
 date:
 tags: [daily]
+created:
+owner: human
 summary:
 public: false
 ---

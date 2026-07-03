@@ -4,9 +4,19 @@
 
 公网地址：https://kiwinww.github.io/codex-second-brain-kb/
 
+## LLM Wiki 架构
+
+本仓库参考 Karpathy 的 LLM Wiki 模式，采用三层结构：
+
+- Raw sources：`08_sources_raw/`，来源卡和摘要，尽量不可变。
+- Wiki：`09_wiki/`，LLM 维护的结构化知识层。
+- Schema：`AGENTS.md`，Agent 的维护规则和工作流。
+
 ## 快速开始
 
 ```powershell
+python tools/kb.py index
+python tools/kb.py lint
 python tools/build_site.py
 python -m http.server 8000 -d public
 ```
@@ -24,6 +34,7 @@ Windows 下也可以使用：
 完整手册见 `10_outputs/operation-manual.md`，包含：
 
 - 日常记录和资料归档
+- LLM Wiki 的 ingest、query、lint
 - 任务、日程、项目和 Wiki 维护
 - 默认私密与公开发布规则
 - 本地构建和移动端检查
@@ -58,6 +69,8 @@ title:
 type:
 tags: []
 updated:
+sources: []
+owner: llm
 summary:
 public: false
 ---
@@ -77,6 +90,15 @@ python -m http.server 8000 -d public
 ```
 
 推送到 `main` 后，GitHub Pages 会自动发布。
+
+常用维护命令：
+
+```powershell
+python tools/kb.py new --type wiki --title "新主题"
+python tools/kb.py index
+python tools/kb.py log --kind ingest --title "新来源"
+python tools/kb.py lint
+```
 
 ## 部署到阿里云
 

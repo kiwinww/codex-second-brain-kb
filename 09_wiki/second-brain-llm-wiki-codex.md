@@ -3,11 +3,20 @@ title: Codex 时代的个人第二大脑
 type: wiki
 tags: [second-brain, llm-wiki, codex, markdown, ai-context]
 source: https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg
+sources: [https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg, https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f]
+created: 2026-07-03
 updated: 2026-07-03
+owner: llm
+summary: 说明 Codex 时代的个人第二大脑如何以 Markdown、LLM Wiki 和长期上下文方式落地。
 public: true
 ---
 
 # Codex 时代的个人第二大脑
+
+## 来源
+
+- 微信文章来源卡：[[如何用codex建立个人知识库 第二大脑]]
+- Karpathy 模式页：[[LLM Wiki 工作流]]
 
 ## 核心观点
 
@@ -40,3 +49,12 @@ public: true
 - 原生 HTML/CSS/JS 构建仪表盘。
 - 阿里云 OSS 负责公网访问，GitHub 负责协作和自动部署。
 
+## 相关页面
+
+- [[LLM Wiki 工作流]]
+- [[知识库地图]]
+
+## 待验证
+
+- 个人长期上下文增长后，是否需要拆分更多实体页和概念页。
+- 哪些 output 值得回写为 Wiki 页面，哪些只保留为一次性输出。

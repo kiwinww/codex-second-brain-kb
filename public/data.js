@@ -1,5 +1,5 @@
 window.KB_DATA = {
-  "generatedAt": "2026-07-03 12:17",
+  "generatedAt": "2026-07-03 13:49",
   "notes": [
     {
       "title": "第二大脑产品想法",
@@ -9,6 +9,7 @@ window.KB_DATA = {
         "second-brain",
         "dashboard"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "",
       "path": "02_memos/second-brain-product-ideas.md",
@@ -22,6 +23,7 @@ window.KB_DATA = {
       "tags": [
         "tasks"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "",
       "path": "03_tasks/tasks.md",
@@ -35,6 +37,7 @@ window.KB_DATA = {
       "tags": [
         "calendar"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "",
       "path": "04_calendar/upcoming.md",
@@ -51,6 +54,7 @@ window.KB_DATA = {
         "aliyun",
         "github"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "",
       "path": "05_projects/public-second-brain-site.md",
@@ -66,12 +70,31 @@ window.KB_DATA = {
         "context",
         "second-brain"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "",
       "path": "06_areas/ai-context.md",
       "status": "",
       "source": "",
       "summary": "说明 AI 工具读取长期个人上下文的目标和维护内容。"
+    },
+    {
+      "title": "LLM Wiki",
+      "type": "source",
+      "tags": [
+        "llm-wiki",
+        "raw-sources",
+        "wiki",
+        "schema",
+        "agent-workflow"
+      ],
+      "sources": [],
+      "updated": "2026-07-03",
+      "date": "2026-04-04",
+      "path": "08_sources_raw/2026-04-04-karpathy-llm-wiki.md",
+      "status": "",
+      "source": "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f",
+      "summary": "Karpathy 提出的 LLM Wiki 模式：让 LLM 在不可变来源和用户问题之间维护一个持续生长的 Markdown Wiki。"
     },
     {
       "title": "如何用codex建立个人知识库 第二大脑",
@@ -82,12 +105,13 @@ window.KB_DATA = {
         "llm-wiki",
         "markdown"
       ],
+      "sources": [],
       "updated": "2026-07-03",
       "date": "2026-07-02",
       "path": "08_sources_raw/2026-07-02-wechat-codex-second-brain.md",
       "status": "",
       "source": "https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg",
-      "summary": "如何用codex建立个人知识库 第二大脑 来源 标题：如何用codex建立个人知识库 第二大脑 作者/公众号：白无常C4D 发布时间：2026-07-02 21:42 UTC+8 链接：https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg 摘要 文章主张把个人知识库从“收藏资料”升级为“AI 可调用的长期上下文”"
+      "summary": "微信文章，介绍用 Codex/Cursor 搭建 Markdown 个人知识库和第二大脑的实践。"
     },
     {
       "title": "知识库地图",
@@ -97,12 +121,35 @@ window.KB_DATA = {
         "workflow",
         "markdown"
       ],
+      "sources": [
+        "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f"
+      ],
       "updated": "2026-07-03",
       "date": "",
       "path": "09_wiki/knowledge-base-map.md",
       "status": "",
       "source": "",
       "summary": "说明个人第二大脑的目录职责、公开策略和日常维护流向。"
+    },
+    {
+      "title": "LLM Wiki 工作流",
+      "type": "wiki",
+      "tags": [
+        "llm-wiki",
+        "ingest",
+        "query",
+        "lint",
+        "schema"
+      ],
+      "sources": [
+        "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f"
+      ],
+      "updated": "2026-07-03",
+      "date": "",
+      "path": "09_wiki/llm-wiki-workflow.md",
+      "status": "",
+      "source": "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f",
+      "summary": "将 Karpathy 的 LLM Wiki 模式落到本仓库：来源只读、Wiki 由 LLM 维护、AGENTS 作为 schema，操作分为 ingest、query 和 lint。"
     },
     {
       "title": "Codex 时代的个人第二大脑",
@@ -114,12 +161,16 @@ window.KB_DATA = {
         "markdown",
         "ai-context"
       ],
+      "sources": [
+        "https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg",
+        "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f"
+      ],
       "updated": "2026-07-03",
       "date": "",
       "path": "09_wiki/second-brain-llm-wiki-codex.md",
       "status": "",
       "source": "https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg",
-      "summary": "Codex 时代的个人第二大脑 核心观点 个人第二大脑的价值不只是保存资料，而是把分散输入整理成 AI 能长期读取、继续加工和用于输出的个人上下文。 方法框架 捕捉：把灵感、资料、任务、日程先收进知识库。 组织：按来源、Wiki、任务、项目、领域分层。 提炼：把来源转成短摘要、概念、行动清单和关联笔记。 表达：用这些内容生成文章、课程、产品方案、视频脚本或项"
+      "summary": "说明 Codex 时代的个人第二大脑如何以 Markdown、LLM Wiki 和长期上下文方式落地。"
     },
     {
       "title": "个人第二大脑操作手册",
@@ -129,6 +180,9 @@ window.KB_DATA = {
         "second-brain",
         "github",
         "aliyun"
+      ],
+      "sources": [
+        "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f"
       ],
       "updated": "2026-07-03",
       "date": "",
@@ -212,6 +266,10 @@ window.KB_DATA = {
       "count": 5
     },
     {
+      "name": "llm-wiki",
+      "count": 4
+    },
+    {
       "name": "markdown",
       "count": 3
     },
@@ -224,11 +282,11 @@ window.KB_DATA = {
       "count": 2
     },
     {
-      "name": "codex",
+      "name": "schema",
       "count": 2
     },
     {
-      "name": "llm-wiki",
+      "name": "codex",
       "count": 2
     },
     {
@@ -264,11 +322,35 @@ window.KB_DATA = {
       "count": 1
     },
     {
+      "name": "raw-sources",
+      "count": 1
+    },
+    {
+      "name": "wiki",
+      "count": 1
+    },
+    {
+      "name": "agent-workflow",
+      "count": 1
+    },
+    {
       "name": "knowledge-base",
       "count": 1
     },
     {
       "name": "workflow",
+      "count": 1
+    },
+    {
+      "name": "ingest",
+      "count": 1
+    },
+    {
+      "name": "query",
+      "count": 1
+    },
+    {
+      "name": "lint",
       "count": 1
     },
     {
@@ -286,8 +368,8 @@ window.KB_DATA = {
     "memo": 1,
     "output": 1,
     "project": 1,
-    "source": 1,
+    "source": 2,
     "tasks": 1,
-    "wiki": 2
+    "wiki": 3
   }
 };

@@ -7,6 +7,9 @@ published: 2026-07-02
 captured: 2026-07-03
 url: https://mp.weixin.qq.com/s/wncxlGaNEG_TS4-qufCXHg
 tags: [second-brain, codex, llm-wiki, markdown]
+created: 2026-07-03
+owner: human
+summary: 微信文章，介绍用 Codex/Cursor 搭建 Markdown 个人知识库和第二大脑的实践。
 public: true
 ---
 
@@ -29,4 +32,3 @@ public: true
 - 把原始资料、结构化 Wiki 和维护规则分层管理。
 - 让 Agent 按规则归档资料、任务、日程和项目。
 - 用仪表盘把 Markdown 内容转成搜索、近期计划、日历和关系视图。
-

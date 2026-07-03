@@ -2,12 +2,24 @@
 title: 知识库地图
 type: wiki
 tags: [knowledge-base, workflow, markdown]
+sources: [https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f]
+created: 2026-07-03
 updated: 2026-07-03
+owner: llm
 summary: 说明个人第二大脑的目录职责、公开策略和日常维护流向。
 public: true
 ---
 
 # 知识库地图
+
+## 来源
+
+- [[LLM Wiki 工作流]]
+- [[Codex 时代的个人第二大脑]]
+
+## 核心观点
+
+本仓库用现有目录渐进兼容 Karpathy 的 LLM Wiki 三层架构：来源层只读，Wiki 层持续综合，schema 层约束 Agent 操作。
 
 ## 目录职责
 
@@ -24,6 +36,14 @@ public: true
 - `10_outputs/`：文章、课程、方案和操作手册。
 - `11_templates/`：新内容模板。
 
+## 三层映射
+
+- Raw sources：`08_sources_raw/`
+- Wiki：`09_wiki/`
+- Schema：`AGENTS.md`
+- Index：`index.md`
+- Log：`log.md`
+
 ## 公开策略
 
 公网默认私密。只有 front matter 中明确写了 `public: true` 的 Markdown 文件，才会进入 `public/data.js` 并显示在站点上。
@@ -32,3 +52,12 @@ public: true
 
 先把碎片放进 `00_inbox/`，再定期整理到来源、Wiki、任务、项目或日程。能复用的方法沉淀为 Wiki，能交付的内容沉淀为输出。
 
+## 相关页面
+
+- [[LLM Wiki 工作流]]
+- [[Codex 时代的个人第二大脑]]
+
+## 待验证
+
+- `09_wiki/` 页面变多后，是否需要引入主题索引页。
+- 公开站点是否需要直接展示 `index.md` 的完整目录，而不是只展示摘要。

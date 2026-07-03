@@ -89,11 +89,15 @@ def read_notes() -> list[dict]:
             tags = meta.get("tags", [])
             if not isinstance(tags, list):
                 tags = []
+            sources = meta.get("sources", [])
+            if not isinstance(sources, list):
+                sources = []
             notes.append(
                 {
                     "title": str(meta.get("title") or first_heading(body, path.stem)),
                     "type": str(meta.get("type") or "note"),
                     "tags": tags,
+                    "sources": sources,
                     "updated": str(meta.get("updated") or meta.get("captured") or meta.get("published") or ""),
                     "date": str(meta.get("date") or meta.get("published") or ""),
                     "path": rel,
