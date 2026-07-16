@@ -2,7 +2,7 @@
 title: 个人第二大脑索引
 type: home
 tags: [second-brain, llm-wiki, index]
-updated: 2026-07-03
+updated: 2026-07-16
 summary: 内容导向目录，按 LLM Wiki 的来源、Wiki、项目、输出和任务等类别组织。
 public: true
 ---
@@ -40,7 +40,7 @@ public: true
 
 ## 输出
 
-- [个人第二大脑操作手册](10_outputs/operation-manual.md) - 面向使用者和开发者的知识库维护、构建、发布和故障处理手册。（公开，2026-07-03） 来源：https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f
+- [个人第二大脑操作手册](10_outputs/operation-manual.md) - 面向使用者和开发者的知识库维护、构建、发布和故障处理手册。（公开，2026-07-16） 来源：https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f
 - [输出作品](10_outputs/README.md) - 输出作品目录说明，默认不发布。（私密，2026-07-03）
 
 ## 任务

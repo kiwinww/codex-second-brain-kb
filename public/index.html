@@ -3,163 +3,215 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>个人第二大脑仪表盘</title>
+    <meta name="theme-color" content="#0b0f0d">
+    <title>个人第二大脑工作台</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
     <header class="topbar">
-      <a class="brand" href="./" aria-label="个人第二大脑仪表盘首页">
+      <a class="brand" href="./" aria-label="个人第二大脑工作台首页">
         <strong>个人第二大脑</strong>
-        <span>Markdown KB</span>
+        <span>Markdown · 私密优先</span>
       </a>
-      <nav aria-label="主要区域">
-        <a href="#search-panel">搜索</a>
-        <a href="#calendar">日历</a>
-        <a href="#ideas">脑图</a>
-        <a href="#editor">编辑</a>
+      <nav aria-label="主要工作区">
+        <a href="#today">收集</a>
+        <a href="#action">行动</a>
+        <a href="#knowledge">知识</a>
+        <a href="#editor">整理</a>
       </nav>
     </header>
--
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-grid" aria-hidden="true"></div>
+
+    <main id="main-content">
+      <section id="today" class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="badge">AI · Powered</p>
-          <p class="eyebrow">Second Brain Dashboard</p>
-          <h1 id="hero-title">SECOND<br>BRAIN<br>MAP</h1>
-          <p class="hero-summary">把中文第二大脑、近期计划、想法脑图和任务卡片，整理成一个可搜索、可维护的知识工作台。</p>
+          <p class="eyebrow">今日工作台</p>
+          <h1 id="hero-title">先记录，<br>再推进。</h1>
+          <p class="hero-summary">把碎片先放进收件箱，再整理成任务、日程、Wiki 或项目。首页只保留下一步真正会用到的入口。</p>
+
+          <div class="quick-actions" aria-label="快速收集">
+            <button type="button" class="primary-action" data-editor-type="memo">
+              <span>记下想法</span>
+              <small>先收集，不急着分类</small>
+            </button>
+            <button type="button" data-editor-type="tasks">
+              <span>添加任务</span>
+              <small>明确一个下一步</small>
+            </button>
+            <button type="button" data-editor-type="calendar">
+              <span>安排日程</span>
+              <small>记录有日期的事项</small>
+            </button>
+          </div>
         </div>
 
-        <section id="search-panel" class="search-panel hero-search" aria-labelledby="search-title">
-          <div class="search-row">
-            <span class="search-icon" aria-hidden="true">⌕</span>
-            <label class="sr-only" for="search" id="search-title">搜索知识库</label>
-            <input id="search" type="search" placeholder="搜索想法、计划、行程、任务..." autocomplete="off">
-            <span id="generated-at"></span>
-            <button class="search-submit" type="button">Search</button>
-          </div>
-          <div class="search-meta">
-            <span id="result-count"></span>
-            <div id="type-filters" class="type-filters" aria-label="按类型筛选"></div>
-          </div>
-        </section>
-
-        <aside class="hero-side" aria-label="知识库概览">
-          <article class="glass-card stats-card">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Online</p>
-                <h2>第二大脑在线</h2>
-              </div>
-              <a class="round-link" href="#notes" aria-label="查看公开笔记">↗</a>
+        <aside class="overview-card" aria-label="知识库概览">
+          <div class="overview-head">
+            <div>
+              <p class="eyebrow">当前状态</p>
+              <h2>你的第二大脑</h2>
             </div>
-            <div class="stats" aria-label="知识库统计">
-              <div><strong id="stat-notes">0</strong><span>公开笔记</span></div>
-              <div><strong id="stat-ideas">0</strong><span>想法</span></div>
-              <div><strong id="stat-events">0</strong><span>日程</span></div>
-              <div><strong id="stat-tasks">0</strong><span>任务</span></div>
-            </div>
-          </article>
-
-          <div class="hero-mini-grid">
-            <article class="glass-card mini-card">
-              <div class="panel-head">
-                <h2>近期活跃度</h2>
-                <a class="round-link" href="#plans" aria-label="查看近期计划">↗</a>
-              </div>
-              <strong id="event-count">0 条</strong>
-              <span>计划与日程</span>
-            </article>
-            <article class="glass-card mini-card rhythm-card">
-              <div class="panel-head">
-                <h2>更新节奏</h2>
-                <a class="round-link" href="#tasks" aria-label="查看任务">↗</a>
-              </div>
-              <div class="bar-rhythm" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </article>
+            <span class="online-badge">在线</span>
           </div>
+          <div class="stats" aria-label="知识库统计">
+            <div><strong id="stat-tasks">0</strong><span>待办</span></div>
+            <div><strong id="stat-events">0</strong><span>近期日程</span></div>
+            <div><strong id="stat-notes">0</strong><span>公开知识</span></div>
+            <div><strong id="stat-ideas">0</strong><span>想法节点</span></div>
+          </div>
+          <p id="generated-at" class="generated-at"></p>
         </aside>
+
+        <section id="search-panel" class="search-panel" aria-labelledby="search-title">
+          <div class="search-heading">
+            <div>
+              <p class="eyebrow">快速查找</p>
+              <h2 id="search-title">搜索你的知识</h2>
+            </div>
+            <span id="result-count" aria-live="polite"></span>
+          </div>
+          <label class="search-box" for="search">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <span class="sr-only">搜索知识库</span>
+            <input id="search" type="search" placeholder="搜索主题、项目、来源、标签…" autocomplete="off">
+          </label>
+          <div id="type-filters" class="type-filters" aria-label="按类型筛选"></div>
+        </section>
       </section>
 
-      <div class="quick-tabs" aria-label="快捷入口">
-        <a href="#calendar">本月</a>
-        <a href="#plans">行程</a>
-        <a href="#ideas">想法</a>
-        <a href="#notes">学习</a>
-        <a href="#tasks">任务</a>
-        <a href="#editor">编辑</a>
-      </div>
+      <section id="action" class="workspace-section" aria-labelledby="action-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">行动</p>
+            <h2 id="action-title">现在要推进的事</h2>
+          </div>
+          <p>默认只看未完成任务和接下来的安排，减少已完成内容的干扰。</p>
+        </div>
 
-      <section class="dashboard-grid" aria-label="知识库仪表盘">
-        <article id="calendar" class="panel calendar-panel">
+        <div class="action-grid">
+          <article id="tasks" class="panel compact-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">待办</p>
+                <h3>下一步行动</h3>
+              </div>
+              <span id="task-count"></span>
+            </div>
+            <div id="tasks-list" class="compact-list checklist-list"></div>
+            <button type="button" class="panel-action" data-editor-type="tasks">添加一项任务</button>
+          </article>
+
+          <article id="plans" class="panel compact-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">近期</p>
+                <h3>接下来的安排</h3>
+              </div>
+              <span id="event-count"></span>
+            </div>
+            <div id="events-list" class="compact-list"></div>
+            <a class="panel-link" href="#calendar">查看完整月历</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="knowledge" class="workspace-section" aria-labelledby="knowledge-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">知识</p>
+            <h2 id="knowledge-title">继续阅读与整理</h2>
+          </div>
+          <p>搜索和标签会同步筛选下面的卡片；隐藏操作只影响本次浏览。</p>
+        </div>
+
+        <article id="notes" class="panel notes-panel">
           <div class="panel-head">
             <div>
-              <p class="eyebrow">Calendar</p>
-              <h2>日历</h2>
+              <h3>知识卡片</h3>
+              <p class="panel-description">按最近更新排序</p>
+            </div>
+            <span id="notes-count"></span>
+          </div>
+          <div id="notes-list" class="notes-list"></div>
+        </article>
+      </section>
+
+      <section id="planner" class="workspace-section" aria-labelledby="planner-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">计划</p>
+            <h2 id="planner-title">需要日期时，再看月历</h2>
+          </div>
+          <p>月历是辅助视图，不再占据首页的第一操作位置。</p>
+        </div>
+
+        <article id="calendar" class="panel calendar-panel">
+          <div class="panel-head calendar-head">
+            <div>
+              <h3>月历</h3>
             </div>
             <div class="calendar-controls">
               <button id="calendar-prev" type="button" aria-label="上个月">‹</button>
-              <span id="calendar-title"></span>
+              <span id="calendar-title" aria-live="polite"></span>
               <button id="calendar-next" type="button" aria-label="下个月">›</button>
             </div>
             <div class="calendar-actions" aria-label="日程操作">
               <button id="add-event" type="button">添加日程</button>
-              <button id="download-ics" type="button">导出同步</button>
+              <button id="download-ics" type="button">导出日历</button>
             </div>
           </div>
           <div id="calendar-grid" class="calendar-grid" aria-label="月历"></div>
         </article>
+      </section>
 
-        <article id="plans" class="panel compact-panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Plan</p>
-              <h2>接下来去哪里</h2>
-            </div>
+      <section id="explore" class="workspace-section" aria-labelledby="explore-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">探索</p>
+            <h2 id="explore-title">发现想法之间的关系</h2>
           </div>
-          <div id="events-list" class="compact-list"></div>
-        </article>
+          <p>脑图和标签用于回顾与联想，不与日常行动争抢注意力。</p>
+        </div>
 
-        <article id="tasks" class="panel compact-panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Tasks</p>
-              <h2>今天要理什么事</h2>
+        <div class="explore-grid">
+          <article id="ideas" class="panel ideas-panel">
+            <div class="panel-head">
+              <div>
+                <h3>想法关系</h3>
+              </div>
+              <span id="idea-count"></span>
             </div>
-            <span id="task-count"></span>
-          </div>
-          <div id="tasks-list" class="compact-list checklist-list"></div>
-        </article>
+            <div id="mind-map" class="mind-map-wrap"></div>
+          </article>
 
-        <article id="ideas" class="panel ideas-panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Mind Map</p>
-              <h2>近期想法脑图</h2>
+          <article class="panel tags-panel">
+            <div class="panel-head">
+              <div>
+                <h3>常用标签</h3>
+              </div>
+              <span id="tag-count"></span>
             </div>
-            <span id="idea-count"></span>
-          </div>
-          <div id="mind-map" class="mind-map-wrap"></div>
-        </article>
+            <div id="tags-list" class="tags"></div>
+          </article>
+        </div>
+      </section>
 
-        <article class="panel tags-panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Tags</p>
-              <h2>标签节点</h2>
-            </div>
-            <span id="tag-count"></span>
+      <section class="workspace-section capture-section" aria-labelledby="capture-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">整理</p>
+            <h2 id="capture-title">把临时内容带回 Markdown</h2>
           </div>
-          <div id="tags-list" class="tags"></div>
-        </article>
+          <p>网页不会直接写入仓库；请复制或下载 Markdown 后再正式归档。</p>
+        </div>
 
         <details id="editor" class="panel editor-panel">
           <summary class="editor-summary">
             <div>
-              <p class="eyebrow">Capture</p>
-              <h2>编辑与本地上传</h2>
+              <h3>编辑与本地导入</h3>
+              <p>只在当前浏览器预览，刷新后不会自动保留</p>
             </div>
             <span id="import-count"></span>
           </summary>
@@ -196,56 +248,46 @@
               </label>
               <label class="field-wide">
                 <span>摘要</span>
-                <input id="edit-summary" name="summary" type="text" placeholder="一句话摘要">
+                <input id="edit-summary" name="summary" type="text" placeholder="一句话说明这条内容">
               </label>
               <label class="field-wide">
                 <span>正文</span>
-                <textarea id="edit-body" name="body" rows="7">## 想法
-
--
-
-## 下一步
-
-- [ ] </textarea>
+                <textarea id="edit-body" name="body" rows="7"></textarea>
               </label>
               <label class="checkbox-line field-wide">
                 <input id="edit-public" name="public" type="checkbox">
-                <span>允许进入公网数据</span>
+                <span>确认内容已脱敏，允许进入公网数据</span>
               </label>
               <div class="button-row field-wide">
-                <button id="add-local" type="button">填充到当前视图</button>
+                <button id="add-local" type="button">加入本次预览</button>
                 <button id="copy-markdown" type="button">复制 Markdown</button>
                 <button id="download-markdown" type="button">下载 .md</button>
               </div>
             </form>
 
             <div class="upload-box">
-              <label class="upload-label" for="file-upload">本地上传</label>
+              <div>
+                <h3>导入本地资料</h3>
+                <p>支持 Markdown、JSON 和 CSV；仅临时合并到当前页面。</p>
+              </div>
+              <label class="upload-label" for="file-upload">选择文件</label>
               <input id="file-upload" type="file" multiple accept=".md,.markdown,.json,.csv,text/markdown,application/json,text/csv">
-              <button id="clear-imports" type="button">清空本地导入</button>
-              <div id="import-status" class="status-list"></div>
+              <button id="clear-imports" type="button">清空本次导入</button>
+              <div id="import-status" class="status-list" aria-live="polite"></div>
             </div>
 
-            <pre id="markdown-preview" class="markdown-preview" aria-label="Markdown 预览"></pre>
+            <div class="preview-box">
+              <h3>Markdown 预览</h3>
+              <pre id="markdown-preview" class="markdown-preview" aria-label="Markdown 预览"></pre>
+            </div>
           </div>
         </details>
-
-        <article id="notes" class="panel notes-panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Notes</p>
-              <h2>公开笔记</h2>
-            </div>
-            <span id="notes-count"></span>
-          </div>
-          <div id="notes-list" class="notes-list"></div>
-        </article>
       </section>
     </main>
 
     <footer>
-      <span>Generated from Markdown.</span>
-      <span>Static, private by default.</span>
+      <span>由 Markdown 生成 · 默认私密</span>
+      <span>网页操作只用于预览，正式内容以仓库文件为准</span>
     </footer>
 
     <script src="./data.js"></script>
