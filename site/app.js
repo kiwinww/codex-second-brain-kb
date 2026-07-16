@@ -101,6 +101,22 @@
     });
   }
 
+  function isDone(value) {
+    const text = String(value || "");
+    return text.includes("完成") || text.includes("已办") || text.toLowerCase() === "done";
+  }
+
+  function pendingTasks() {
+    return allTasks().filter((task) => !isDone(task.meta || task.status));
+  }
+
+  function upcomingEvents() {
+    const today = todayISO();
+    return allEvents().filter((event) => {
+      return parseDate(event.date) && event.date >= today && !isDone(event.status || event.meta);
+    });
+  }
+
   function allHealthMetrics() {
     return data.healthMetrics.concat(local.healthMetrics).filter((item) => Number.isFinite(Number(item.value)));
   }
@@ -118,8 +134,9 @@
   }
 
   function pickInitialMonth() {
-    const firstEvent = data.events.find((event) => parseDate(event.date));
-    return firstEvent ? parseDate(firstEvent.date) : new Date();
+    const today = todayISO();
+    const nextEvent = data.events.find((event) => parseDate(event.date) && event.date >= today);
+    return nextEvent ? parseDate(nextEvent.date) : new Date();
   }
 
   function parseDate(value) {
@@ -149,10 +166,10 @@
     const ideaGraph = buildIdeaGraph();
     document.querySelector("#stat-notes").textContent = notes.length;
     document.querySelector("#stat-ideas").textContent = Math.max(0, ideaGraph.nodes.length - 1);
-    document.querySelector("#stat-events").textContent = allEvents().length;
+    document.querySelector("#stat-events").textContent = upcomingEvents().length;
     const taskStat = document.querySelector("#stat-tasks");
     if (taskStat) {
-      taskStat.textContent = allTasks().length;
+      taskStat.textContent = pendingTasks().length;
     }
   }
 
@@ -194,7 +211,13 @@
 
   function renderNotes() {
     const query = els.search.value.trim().toLowerCase();
-    const filtered = allNotes().filter((note) => matches(note, query, currentType));
+    const filtered = allNotes()
+      .filter((note) => matches(note, query, currentType))
+      .sort((a, b) => {
+        return `${b.updated || b.date || ""}${b.title || ""}`.localeCompare(
+          `${a.updated || a.date || ""}${a.title || ""}`
+        );
+      });
     els.resultCount.textContent = `${filtered.length} 条`;
     els.notesCount.textContent = `${filtered.length} 条`;
     els.notesList.innerHTML = "";
@@ -210,10 +233,19 @@
       const date = note.updated || note.date || "";
       const localBadge = note.local ? '<span class="chip chip-local">本地导入</span>' : "";
       const status = note.status ? `<span>${escapeHtml(note.status)}</span>` : "";
+      const externalSource = note.type === "source" && /^https?:\/\//i.test(String(note.source || ""));
+      const url = noteUrl(note);
+      const linkText = externalSource ? "查看来源" : "查看 Markdown";
+      const noteLink = url
+        ? `<a class="note-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${linkText}</a>`
+        : "";
       item.innerHTML = `
         <div class="note-head">
           <h3>${escapeHtml(note.title)}</h3>
-          <button type="button" class="delete-note" aria-label="删除 ${escapeHtml(note.title)}">删除</button>
+          <div class="note-actions">
+            ${noteLink}
+            <button type="button" class="delete-note" aria-label="从本次预览隐藏 ${escapeHtml(note.title)}">本次隐藏</button>
+          </div>
         </div>
         <p>${escapeHtml(note.summary || "暂无摘要")}</p>
         <div class="meta">
@@ -239,7 +271,7 @@
       return;
     }
 
-    items.slice(0, 8).forEach((entry) => {
+    items.slice(0, 5).forEach((entry) => {
       const item = document.createElement("div");
       item.className = "compact-item";
       const localBadge = entry.local ? " · 本地" : "";
@@ -532,7 +564,7 @@
     } else {
       local.deletedNotes.add(key);
     }
-    pushLog(`已从当前视图删除：${note.title}`);
+    pushLog(`已临时隐藏：${note.title}（刷新页面可恢复）`);
     renderAll();
   }
 
@@ -552,7 +584,7 @@
     els.importCount.textContent = total ? `${total} 本地` : "";
     els.importStatus.innerHTML = "";
     if (!local.log.length) {
-      els.importStatus.appendChild(emptyNode("暂无本地导入。"));
+      els.importStatus.appendChild(emptyNode("暂无本地导入。网页操作不会直接修改仓库。"));
       return;
     }
     local.log.slice(0, 5).forEach((message) => {
@@ -563,16 +595,18 @@
   }
 
   function renderAll() {
+    const tasks = pendingTasks();
+    const events = upcomingEvents();
     renderStats();
     renderSearchViews();
     renderTags();
     renderCalendar();
     renderMindMap();
     renderHealthChart();
-    renderCompact(els.tasksList, allTasks(), "暂无任务。");
-    renderCompact(els.eventsList, allEvents(), "暂无日程。");
-    els.taskCount.textContent = `${allTasks().length} 条`;
-    els.eventCount.textContent = `${allEvents().length} 条`;
+    renderCompact(els.tasksList, tasks, "当前没有待办。可以先记录一个明确的下一步。");
+    renderCompact(els.eventsList, events, "接下来没有已安排的日程。");
+    els.taskCount.textContent = `${tasks.length} 项`;
+    els.eventCount.textContent = `${events.length} 项`;
     renderImportStatus();
     updateMarkdownPreview();
   }
@@ -586,11 +620,37 @@
       els.editTitle.value = "新的日程";
       els.editTags.value = "calendar";
       els.editSummary.value = "新增日程";
+    } else if (type === "tasks") {
+      els.editTitle.value = "新的任务";
+      els.editTags.value = "tasks";
+      els.editSummary.value = "需要推进的下一步";
+    } else if (type === "memo") {
+      els.editTitle.value = "新的想法";
+      els.editTags.value = "inbox, ideas";
+      els.editSummary.value = "刚刚记录的想法";
     }
     lastTemplate = templateForType(els.editType.value, els.editTitle.value || "新的知识卡片");
     els.editBody.value = lastTemplate;
     updateMarkdownPreview();
     els.editorPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => els.editTitle.focus(), 350);
+  }
+
+  function noteUrl(note) {
+    if (note.type === "source" && note.source && /^https?:\/\//i.test(String(note.source))) {
+      return String(note.source);
+    }
+    if (!note.local && note.path) {
+      const path = String(note.path)
+        .split("/")
+        .map((part) => encodeURIComponent(part))
+        .join("/");
+      return `https://github.com/kiwinww/codex-second-brain-kb/blob/main/${path}`;
+    }
+    if (note.source && /^https?:\/\//i.test(String(note.source))) {
+      return String(note.source);
+    }
+    return "";
   }
 
   function downloadIcs() {
@@ -1074,6 +1134,9 @@
   });
   els.copyMarkdown.addEventListener("click", copyMarkdown);
   els.downloadMarkdown.addEventListener("click", downloadMarkdown);
+  document.querySelectorAll("[data-editor-type]").forEach((button) => {
+    button.addEventListener("click", () => openEditorFor(button.dataset.editorType || "memo"));
+  });
   els.editorForm.addEventListener("input", updateMarkdownPreview);
   els.editType.addEventListener("change", () => {
     if (!els.editBody.value.trim() || els.editBody.value.trim() === lastTemplate.trim()) {

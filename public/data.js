@@ -1,5 +1,5 @@
 window.KB_DATA = {
-  "generatedAt": "2026-07-03 14:53",
+  "generatedAt": "2026-07-16 17:46",
   "notes": [
     {
       "title": "第二大脑产品想法",
@@ -205,7 +205,7 @@ window.KB_DATA = {
       "sources": [
         "https://gist.github.com/Karpathy/442a6bf555914893e9891c11519de94f"
       ],
-      "updated": "2026-07-03",
+      "updated": "2026-07-16",
       "date": "",
       "path": "10_outputs/operation-manual.md",
       "status": "",
